@@ -1,0 +1,103 @@
+<div class="container">
+    <form [formGroup]="addPrescriptionForm">
+        <div formArrayName="tableRow" class="row">
+            <div *ngFor="let data of addPrescriptionForm.get('tableRow')['controls']; let i=index"
+                class="col-12">
+                <div class="presmedicine-border mb-2">
+                   <div [formGroupName]=i class="row">
+
+                        <div class="col-12 mt-2 presmedicine-inner">
+                            <div formArrayName="tableDetail" class="row">
+                                <div *ngFor="let innerData of data.get('tableDetail')['controls']; let j=index"
+                                    class="col-12">
+
+                                    <div [formGroupName]=j class="row mb-2">
+                                        <div class="col">
+                                            <input type="text" class="form-control"
+                                                formControlName="tableItemOne"
+                                                placeholder="Table Name">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control"
+                                                formControlName="tableItemTwo"
+                                                placeholder="Table Name">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control"
+                                                formControlName="tableItemThree"
+                                                placeholder="Table Name">
+                                        </div>
+
+                                        <div class="col" formArrayName="tableExtCol"
+                                            *ngFor="let subInnerData of innerData.get('tableExtCol')['controls']; let k=index">
+                                            <div class="row">
+                                                <div [formGroupName]=k class="col-12">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <input type="text"
+                                                                class="form-control"
+                                                                formControlName="tdExtra"
+                                                                placeholder="Table Name">
+
+                                                            <a href="javascript:void(0)"
+                                                                (click)="removeTableExtCol(i,j,k)"
+                                                                class="inputCross">
+                                                                <img src="assets/img/cross.png">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="row">
+                                                    <div class="col"><button
+                                                            (click)="removeTableExtCol(i,j,k)"
+                                                            type="button"
+                                                            class="btn btn-danger">x</button>
+                                                    </div>
+                                                </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col text-right">
+                                            <a class="addRemoveBtn"
+                                                (click)="addTableExtCol(i,j)">+Add Column</a>
+                                            <a *ngIf="j!=0" class="addRemoveBtn ml-3"
+                                                (click)="removeTableDetailRow(i,j)">-Remove
+                                                Row</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12 text-right">
+                                    <a class="addRemoveBtn" (click)="addTableDetailRow(i)">+Add
+                                        Row</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-12 text-right">
+                        <a class="addRemoveBtn" (click)="removeMainTableRow(i)">
+                            -Remove Table</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <a class="addRemoveBtn" (click)="addMainTableRow()">+Add Table</a>
+            </div>
+        </div>
+      <div>
+        <button (click)="onProfileForm();">submit</button>
+      </div>
+    </form>
+</div>
